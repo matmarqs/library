@@ -1,0 +1,26 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Roboto, monospace;
+  margin: 0;
+  font-size: 24px;
+  height: 100vh;
+  margin-top: 100px;
+  background-color: black;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.newbook {
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 8px;
+}
