@@ -8,7 +8,6 @@ body {
   font-family: Roboto, monospace;
   margin: 0;
   font-size: 24px;
-  height: 100vh;
   margin-top: 100px;
   background-color: black;
 }
@@ -16,11 +15,28 @@ body {
 .container {
   display: flex;
   justify-content: center;
-  color: white;
+  color: whitesmoke;
 }
 
-.newbook {
-  border: 1px solid white;
+.book {
+  /* book class */
+}
+
+#newbook {
+  border: 1px solid whitesmoke;
   border-radius: 8px;
   padding: 8px;
+  cursor: pointer;
+  transition: all 0.3 ease;
+}
+
+#newbook:hover {
+  background-color: whitesmoke;
+  color: black;
+  box-shadow: 4px 4px 4px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+#newbook:active {
+  transform: translate(2px, 2px);
 }
