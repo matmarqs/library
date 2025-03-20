@@ -42,23 +42,108 @@ function Book(title, author, numpages, read, backgroundColor, textColor) {
   this.author = author;
   this.numpages = numpages;
   this.read = read;
-  this.element = document.createElement("div");
-  this.element.classList.add("book");
   this.backgroundColor = backgroundColor;
   this.textColor = textColor;
   this.displayed = false;
+  this.component = document.createElement("div");
+  this.component.classList.add("book-component");
+  this.component.style = `--book-background: ${this.backgroundColor};` +
+    `--text-color: ${this.textColor}; --left-side-background: ${this.backgroundColor};`
 }
 
 // take params, create a book then store it in the array
 function addBookToLibrary(title, author, numpages, read) {
-  const { backgroundColor, textColor } = generateRandomDarkLightColors();
+  const [backgroundColor, textColor] = generateRandomDarkLightColors();
   const book = new Book(title, author, numpages, read, backgroundColor, textColor);
   library.push(book);
 }
 
 function displayBook(book) {
-  this.element.style.backgroundColor = generateRandomHexColor();  // random color
+  const bookContainer = document.createElement("div");
+  bookContainer.classList.add("book-container");
+  book.component.appendChild(bookContainer);
+
+  const bookElement = document.createElement("div");
+  bookElement.classList.add("book");
+  bookContainer.appendChild(bookElement);
+
+  const bookFront = document.createElement("div");
+  bookFront.classList.add("book-front");
+  bookElement.appendChild(bookFront);
+
+  const bookCover = document.createElement("div");
+  bookCover.classList.add("book-cover");
+  bookFront.appendChild(bookCover);
+
+  const h1Title = document.createElement("h1");
+  h1Title.classList.add("title");
+  h1Title.textContent = book.title;
+  bookCover.appendChild(h1Title);
+
+  const authorP = document.createElement("p");
+  authorP.classList.add("author");
+  authorP.textContent = book.author;
+  bookCover.appendChild(authorP);
+
+  const bookLeftSide = document.createElement("div")
+  bookLeftSide.classList.add("left-side");
+  bookElement.appendChild(bookLeftSide);
+
+  const h2 = document.createElement("h2")
+  bookLeftSide.appendChild(h2);
+
+  const spanAuthor = document.createElement("span")
+  h2.appendChild(spanAuthor);
+  spanAuthor.textContent = book.author;
+  const spanTitle = document.createElement("span")
+  spanTitle.textContent = book.title;
+  h2.appendChild(spanTitle);
+
+  const details = document.createElement("div");
+  details.classList.add("details");
+  book.component.appendChild(details);
+
+  const status = document.createElement("p");
+  status.classList.add("status");
+  if (book.read) {
+    status.innerHTML = 'Read: <span class="read-status">Yes</span>'  // constant string => safe
+  }
+  else {
+    status.innerHTML = 'Read: <span class="unread-status">No</span>'  // constant string => safe
+  }
+  details.appendChild(status);
+
+  const pages = document.createElement("p");
+  pages.classList.add("pages");
+  pages.textContent = `Pages: ${book.numpages}`
+  details.appendChild(pages);
+
+  divLibrary.appendChild(book.component);
 }
+
+// <div class="book-component" style="--book-background: #ff6f61; --text-color: white; --left-side-background: #ff6f61;">
+//   <div class="book-container">
+//     <div class="book">
+//       <div class="front">
+//         <div class="cover">
+//          <h1 class="title">1984</h1>
+//           <p class="author">George Orwell</p>
+//         </div>
+//       </div>
+//       <div class="left-side">
+//         <h2>
+//           <span>George Orwell</span>
+//           <span>1984</span>
+//         </h2>
+//       </div>
+//     </div>
+//   </div>
+//   <!-- Details section -->
+//   <div class="details">
+//     <p class="status">Read: <span class="read-status">Yes</span></p>
+//     <p class="pages">Pages: 328</p>
+//   </div>
+// </div>
 
 //display them in some sort of table, or cards
 function displayAllBooks() {
@@ -81,23 +166,17 @@ function generateRandomColor() {
 function generateRandomDarkLightColors() {
   const firstColor = generateRandomColor();
 
-  // Ensure the second color has the opposite luminance
-  const secondColor = generateRandomColor();
-  if (secondColor.isLight === firstColor.isLight) {
-    // Flip the luminance by adjusting RGB values
-    secondColor.r = 255 - secondColor.r;
-    secondColor.g = 255 - secondColor.g;
-    secondColor.b = 255 - secondColor.b;
-  }
+  // Ensure the second color has the opposite contrast (black or white)
+  const secondColor = firstColor.isLight() ? new Color(0, 0, 0) : new Color(255, 255, 255);
 
-  return { firstColor, secondColor };
+  return [firstColor.hex(), secondColor.hex()];
 }
 
 const divLibrary = document.querySelector("#library")
 
 const newbookButton = document.querySelector("#newbook");
 newbookButton.addEventListener("click", () => {
-  console.log("oi");
-  addBookToLibrary("Teste");
+  addBookToLibrary("Lord of the Rings", "J. R. R. Tolkien", 500, true);
+  displayAllBooks();
 });
 

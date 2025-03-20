@@ -9,7 +9,7 @@ body {
   margin: 0;
   font-size: 24px;
   margin-top: 100px;
-  background-color: black;
+  background-color: #c4bec6;
 }
 
 .container {
@@ -18,25 +18,207 @@ body {
   color: whitesmoke;
 }
 
-.book {
-  /* book class */
+#library {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 64px;
+  padding: 64px;
 }
 
 #newbook {
-  border: 1px solid whitesmoke;
+  border: 1px solid black;
   border-radius: 8px;
   padding: 8px;
   cursor: pointer;
   transition: all 0.3 ease;
+  background-color: black;
 }
 
 #newbook:hover {
   background-color: whitesmoke;
   color: black;
+  border: 1px solid whitesmoke;
   box-shadow: 4px 4px 4px rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
 }
 
 #newbook:active {
   transform: translate(2px, 2px);
+}
+
+
+/* THE CODE BELOW WAS ADAPTED FROM https://codepen.io/HighFlyer/pen/LaXrgV?editors=1100 */
+/* See also: https://freefrontend.com/css-book-effects/ */
+/* I also used DeepSeek to optimize the layout */
+
+/* Book component styles */
+.book-component {
+  --book-width: 400px;
+  --book-height: 550px;
+  /* Default background */
+  --book-background: #ff6f61;
+  /* Default text color */
+  --text-color: #2b2b2b;
+  --book-shadow: 13px 13px 8px 0px rgba(151, 146, 153, 0.6);
+  --book-radius: 2px 4px 4px 2px;
+  --left-side-width: 40px;
+  /* Default background */
+  --left-side-background: #ff6f61;
+  --font-family: acumin-pro, sans-serif;
+}
+
+.book-component .book-container {
+  z-index: 1;
+  perspective: 3000px;
+}
+
+.book-component .book {
+  position: relative;
+  display: block;
+  width: var(--book-width);
+  height: var(--book-height);
+  margin: 5% auto;
+  border-radius: var(--book-radius);
+  background: var(--book-background);
+  font-family: var(--font-family);
+  box-shadow: var(--book-shadow);
+  font-weight: 400;
+  color: var(--text-color);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.book-component .book:hover {
+  transform: rotate3d(0, 1, 0, 35deg);
+}
+
+.book-component .front,
+.book-component .left-side {
+  display: block;
+  position: absolute;
+}
+
+.book-component .front {
+  transform-style: preserve-3d;
+  transform-origin: 0% 50%;
+  transition: transform 0.5s;
+  transform: translate3d(0, 0, 20px);
+  z-index: 10;
+}
+
+.book-component .front>div {
+  width: var(--book-width);
+  height: var(--book-height);
+}
+
+.book-component .left-side {
+  width: var(--left-side-width);
+  left: -20px;
+  height: var(--book-height);
+  background-color: var(--left-side-background);
+  transform: rotate3d(0, 1, 0, -90deg);
+}
+
+.book-component .cover {
+  background: var(--book-background);
+  position: relative;
+}
+
+.book-component .title {
+  font-size: 32px;
+  font-weight: bold;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.book-component .author {
+  font-family: var(--font-family);
+  font-weight: 400;
+  position: absolute;
+  top: 475px;
+  left: 50px;
+  opacity: 0.8;
+  color: var(--text-color);
+}
+
+.book-component .front>div {
+  border-radius: 0 3px 3px 0;
+  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-component .front:after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: -1px;
+  width: 1px;
+}
+
+.book-component .cover:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10px;
+  bottom: 0;
+  width: 3px;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.book-component h2 {
+  width: 500px;
+  height: 40px;
+  color: var(--text-color);
+  font-size: 15px;
+  line-height: 40px;
+  padding-right: 10px;
+  text-align: right;
+  transform-origin: 0 0;
+  transform: rotate(90deg) translateY(-40px);
+}
+
+.book-component .left-side h2 span:first-child {
+  font-weight: 400;
+  font-size: 13px;
+  padding-right: 20px;
+}
+
+.book-component .left-side h2 span:last-child {
+  font-family: var(--font-family);
+}
+
+/* Details section */
+.book-component .details {
+  text-align: center;
+  margin-top: 20px;
+  font-family: var(--font-family);
+  color: black;
+}
+
+.book-component .details .status {
+  font-size: 16px;
+  margin: 0;
+}
+
+.book-component .details .pages {
+  font-size: 16px;
+  margin: 5px 0 0 0;
+}
+
+.book-component .details .read-status {
+  font-weight: bold;
+  color: #28a745;
+  /* Green for "Read" */
+}
+
+.book-component .details .unread-status {
+  font-weight: bold;
+  color: #dc3545;
+  /* Red for "Not Read" */
 }
