@@ -9,10 +9,12 @@
 </head>
 
 <body>
-  <!--div id="form_container">
+  <div id="form_container">
     <form method="post">
       <div id="data">
-        <p class="mightaswell">You might as well sign in:</p>
+
+        <p class="header">Create a new book</p>
+
         <div class="fieldset">
           <div class="inputfield">
             <label for="bookname">BOOK</label>
@@ -27,43 +29,31 @@
 
         <div class="fieldset">
           <div class="inputfield">
-            <label for="numpages">Number of Pages</label>
-            <input type="number" id="numpages" placeholder="123" required>
+            <label for="numpages">NUMBER OF PAGES</label>
+            <input type="number" id="numpages" placeholder="123" min="1" max="10000" required>
           </div>
 
           <div class="inputfield">
-            <label for="phone">PHONE NUMBER</label>
-            <input type="tel" id="phone" placeholder="(12)34567-8910" required pattern="\(\d\d\)\d\d\d\d\d-\d\d\d\d">
+            <label>READ STATUS</label>
+            <div id="radio">
+              <div class="container">
+                <label for="read">Yes</label>
+                <input type="radio" id="read" name="read-status" value="true" />
+              </div>
+              <div class="container">
+                <label for="notread">No</label>
+                <input type="radio" id="notread" name="read-status" value="false" />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="fieldset">
-          <div class="inputfield">
-            <label for="passwd">PASSWORD</label>
-            <input type="password" id="passwd" required minlength="6" maxlength="20">
-          </div>
-
-          <div class="inputfield">
-            <label for="confirm_passwd">CONFIRM PASSWORD</label>
-            <input type="password" id="confirm_passwd" required minlength="6" maxlength="20">
-          </div>
-        </div>
       </div>
 
-      <div id="account">
-        <button type="submit">
-          Create Account
-        </button>
-
-        <div id="already">
-          Already have an account? <a id="login" href="#">Log in</a>
-        </div>
+      <div class="container">
+        <button type="submit" id="newbook">+ New Book</button>
       </div>
     </form>
-  </div-->
-
-  <div class="container">
-    <div id="newbook">+ New Book</div>
   </div>
 
   <div class="container">

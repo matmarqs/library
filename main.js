@@ -174,9 +174,15 @@ function generateRandomDarkLightColors() {
 
 const divLibrary = document.querySelector("#library")
 
-const newbookButton = document.querySelector("#newbook");
-newbookButton.addEventListener("click", () => {
-  addBookToLibrary("Lord of the Rings", "J. R. R. Tolkien", 500, true);
+const form = document.querySelector("form");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const bookname = document.querySelector("#bookname")
+  const authorname = document.querySelector("#authorname")
+  const numPages = document.querySelector("#numpages")
+  const formData = new FormData(form);
+  const read = formData.get("read-status") === "true" ? true : false;
+  addBookToLibrary(bookname.value, authorname.value, Number(numPages.value), read);
   displayAllBooks();
 });
 
